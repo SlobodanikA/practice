@@ -5,7 +5,12 @@
   <groupId>org.example</groupId>
   <artifactId>gameOfLife</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <modules>
+    <module>ocean</module>
+    <module>cell</module>
+    <module>coordinate</module>
+  </modules>
+  <packaging>pom</packaging>
 
   <name>gameOfLife</name>
   <url>http://maven.apache.org</url>
