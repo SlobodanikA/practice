@@ -9,6 +9,12 @@
     <module>ocean</module>
     <module>cell</module>
     <module>coordinate</module>
+    <module>obstacle</module>
+    <module>prey</module>
+    <module>predator</module>
+    <module>random</module>
+    <module>demo</module>
+      <module>constants</module>
   </modules>
   <packaging>pom</packaging>
 

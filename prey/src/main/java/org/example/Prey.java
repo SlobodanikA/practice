@@ -1,0 +1,36 @@
+package org.example;
+
+public class Prey extends Cell implements PreyInter {
+    protected int timeToReproduce;
+    protected void moveFrom(Coordinate from,Coordinate to){
+        //Cell toCell;                              тут не используется?
+        --timeToReproduce;
+        if(to != from){
+            //toCell=getCallAt(to);                 тут удалить финал?
+            setOffset(to);
+            assignCellAt(to, this);
+            if(timeToReproduce <= 0){
+                timeToReproduce = TimeToReproduce;
+                assignCellAt(from, reproduce(from));
+            }
+            else{
+                assignCellAt(from, new Cell(from));
+            }
+        }
+    }
+    protected Cell reproduce(Coordinate anOffset){
+        Prey temp = new Prey(anOffset);
+        Ocean1.setNumPrey(Ocean1.getNumPrey()+1);
+        return temp;
+    }
+    public Prey(Coordinate aCoord){
+        super(aCoord);
+        timeToReproduce=TimeToReproduce;
+        image = DefaultPreyImage;
+    }
+    public void process(){
+        Coordinate toCoord;
+        toCoord = getEmptyNeighborCoord();
+        moveFrom(offset, toCoord);
+    }
+}

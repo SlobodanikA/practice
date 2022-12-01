@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cell</artifactId>
+    <artifactId>predator</artifactId>
     <packaging>jar</packaging>
 
-    <name>cell</name>
+    <name>predator</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -26,7 +26,7 @@
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>ocean</artifactId>
+            <artifactId>prey</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
