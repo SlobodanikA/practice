@@ -10,7 +10,7 @@ public class Predator extends Prey implements PredatorInter{
     public Predator(Coordinate aCoord) {
         super(aCoord);
         timeToFeed = TimeToFeed;
-        image = DefaultPredImage;
+        image = DefaultPredatorImage;
     }
 
 
@@ -24,7 +24,7 @@ public class Predator extends Prey implements PredatorInter{
         }
         else{
             toCoord = getPreyNeighborCoord();
-            if(toCoord != offset){
+            if(toCoord != this.offset){
                 Ocean1.setNumPrey(Ocean1.getNumPrey()-1);
                 timeToFeed = TimeToFeed;
                 moveFrom(offset,toCoord);

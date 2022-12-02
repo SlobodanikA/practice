@@ -1,6 +1,7 @@
 package org.example;
 
 
+
 public class Random implements RandomInter{
     private static boolean first = true;
     private final int MAX = 32767;
@@ -46,7 +47,7 @@ public class Random implements RandomInter{
         }
         seed1 = seed2;
         seed2 = c;
-        return c/3267;
+        return (long) (c/32767.0);
     }
 
     @Override

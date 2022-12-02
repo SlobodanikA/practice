@@ -37,7 +37,7 @@ public class Cell implements CellInter{
         return getNeighborWithImage(DefaultImage).getOffset();
     }
     protected Coordinate getPreyNeighborCoord(){
-        return getNeighborWithImage(DefaultPredImage).getOffset();
+        return getNeighborWithImage(DefaultPreyImage).getOffset();
     }
     protected Cell north(){
         int yValue;

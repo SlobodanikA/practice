@@ -9,5 +9,5 @@ public interface OceanInter{
     void setNumPrey(int num);
     void setNumPredators(int num);
     void initialize();
-    void run();
+    void run() throws InterruptedException;
 }

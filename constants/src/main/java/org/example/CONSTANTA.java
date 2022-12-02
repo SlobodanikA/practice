@@ -11,7 +11,7 @@ public abstract interface CONSTANTA {
 
     public static final char DefaultImage = '-';
     public static final char DefaultPreyImage = 'f';
-    public static final char DefaultPredImage = 'S';
+    public static final char DefaultPredatorImage = 'S';
     public static final char ObstacleImage = '#';
 
     public static final int TimeToFeed = 6;
