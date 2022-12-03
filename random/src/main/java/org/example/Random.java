@@ -56,7 +56,7 @@ public class Random implements RandomInter{
         int c;
 
         r = (float) (high - low + 1.0);
-        t = r * randReal();
+        t = (float) ((Math.random() * high)+low);
         c = (int) t;
         return (low + c);
     }

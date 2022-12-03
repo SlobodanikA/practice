@@ -170,7 +170,7 @@ public class Ocean implements OceanInter, CONSTANTA{
                 displayCells();
                 displayBorder();
             }
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         }
         System.out.println();
         System.out.println();
