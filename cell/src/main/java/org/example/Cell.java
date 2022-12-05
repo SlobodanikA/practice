@@ -4,6 +4,7 @@ public class Cell implements CONSTANTA {
     protected static Ocean Ocean1 = new Ocean(); // Змінити назву
     protected Coordinate offset;
     protected char image;
+    protected boolean isProcess = false;
 
     protected Cell getCallAt(Coordinate aCord) {
         return Ocean1.cells[aCord.getY()][aCord.getX()];
@@ -91,5 +92,8 @@ public class Cell implements CONSTANTA {
 
     public void process() {
 
+    }
+    public void afterProcess(){
+        isProcess = true;
     }
 }

@@ -163,12 +163,20 @@ public class Ocean implements CONSTANTA{
             if(numPredators > 0&&numPrey>0){
                 for(int row = 0; row < numRows; row++){
                     for(int col = 0; col < numCols; col++){
-                        cells[row][col].process();
+                        if(!cells[row][col].isProcess) {
+                            cells[row][col].process();
+                        }
+                    }
+                }
+                for(int row = 0; row < numRows; row++) {
+                    for (int col = 0; col < numCols; col++) {
+                        cells[row][col].isProcess = false;
                     }
                 }
                 displayStats(iter);
                 displayCells();
                 displayBorder();
+                Thread.sleep(2000);
             }
             Thread.sleep(2000);
         }

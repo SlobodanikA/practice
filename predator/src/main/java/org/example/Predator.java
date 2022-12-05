@@ -9,7 +9,7 @@ public class Predator extends Prey {
     protected int timeToFeed;
     public Predator(Coordinate aCoord) {
         super(aCoord);
-        timeToFeed = TimeToFeed*2;
+        timeToFeed = TimeToFeed;
         image = DefaultPredatorImage;
     }
 
@@ -34,5 +34,9 @@ public class Predator extends Prey {
                 super.process();
             }
         }
+        afterProcess();
+    }
+    public void afterProcess() {
+        super.afterProcess();
     }
 }
