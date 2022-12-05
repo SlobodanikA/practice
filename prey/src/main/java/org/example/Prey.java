@@ -21,7 +21,7 @@ public class Prey extends Cell {
     }
     protected Cell reproduce(Coordinate anOffset){
         Prey temp = new Prey(anOffset);
-        Ocean1.setNumPrey(Ocean1.getNumPrey()+1);
+        Viewer.setNumPrey(Viewer.getNumPrey()+1);
         return temp;
     }
     public Prey(Coordinate aCoord){

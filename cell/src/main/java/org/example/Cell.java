@@ -1,13 +1,13 @@
 package org.example;
 
 public class Cell implements CONSTANTA {
-    protected static Ocean Ocean1 = new Ocean(); // Змінити назву
+    protected Ocean Viewer = new Ocean(); // Змінити назву
     protected Coordinate offset;
     protected char image;
     protected boolean isProcess = false;
 
     protected Cell getCallAt(Coordinate aCord) {
-        return Ocean1.cells[aCord.getY()][aCord.getX()];
+        return Viewer.cells[aCord.getY()][aCord.getX()];
     }
     protected Cell getNeighborWithImage(char anImage){
         Cell neighbors[] = new Cell[4];
@@ -28,11 +28,11 @@ public class Cell implements CONSTANTA {
             return this;
         }
         else{
-            return neighbors[Ocean1.rand.nextIntBetween(0,count-1)];
+            return neighbors[Viewer.rand.nextIntBetween(0,count-1)];
         }
     }
     protected void assignCellAt(Coordinate aCord, Cell aCell){
-        Ocean1.cells[aCord.getY()][aCord.getX()] = aCell;
+        Viewer.cells[aCord.getY()][aCord.getX()] = aCell;
     }
     protected Coordinate getEmptyNeighborCoord(){
         return getNeighborWithImage(DefaultImage).getOffset();
@@ -42,23 +42,23 @@ public class Cell implements CONSTANTA {
     }
     protected Cell north(){
         int yValue;
-        yValue = (offset.getY()>0) ? (offset.getY()-1):(Ocean1.numRows-1);
-        return Ocean1.cells[yValue][offset.getX()];
+        yValue = (offset.getY()>0) ? (offset.getY()-1):(Viewer.numRows-1);
+        return Viewer.cells[yValue][offset.getX()];
     }
     protected Cell south(){
         int yValue;
-        yValue = (offset.getY()+1) % Ocean1.numRows;
-        return Ocean1.cells[yValue][offset.getX()];
+        yValue = (offset.getY()+1) % Viewer.numRows;
+        return Viewer.cells[yValue][offset.getX()];
     }
     protected Cell east(){
         int xValue;
-        xValue = (offset.getX()+1) % Ocean1.numCols;
-        return Ocean1.cells[offset.getY()][xValue];
+        xValue = (offset.getX()+1) % Viewer.numCols;
+        return Viewer.cells[offset.getY()][xValue];
     }
     protected Cell west(){
         int xValue;
-        xValue = (offset.getX()>0)?(offset.getX()-1):(Ocean1.numCols - 1);
-        return Ocean1.cells[offset.getY()][xValue];
+        xValue = (offset.getX()>0)?(offset.getX()-1):(Viewer.numCols - 1);
+        return Viewer.cells[offset.getY()][xValue];
     }
     protected Cell reproduce(Coordinate anOffset){
         Cell temp = new Cell(anOffset);

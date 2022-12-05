@@ -2,8 +2,6 @@ package org.example;
 
 import java.util.Scanner;
 
-import static org.example.Cell.Ocean1;
-
 public class Ocean implements CONSTANTA{
     Scanner scanner = new Scanner(System.in);
     public int numRows;//???????????
@@ -49,7 +47,11 @@ public class Ocean implements CONSTANTA{
         displayStats(-1);
         displayCells();
         displayBorder();
-        Ocean1 = this;
+        for(int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numCols; col++) {
+                cells[row][col].Viewer = this;
+            }
+        }
     }
     private void addEmtyCells(){
         for(int row = 0; row<numRows;row++){
