@@ -17,3 +17,9 @@ public abstract interface CONSTANTA {
     public static final int TimeToFeed = 6;
     public static final int TimeToReproduce = 6;
 }
+
+
+// Розробити окремо візуалізацію
+// Патерн Визитор
+// Оушен1 не статік
+// ЛайтВейгхт Патерн

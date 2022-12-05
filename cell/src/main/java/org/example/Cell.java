@@ -1,7 +1,7 @@
 package org.example;
 
 public class Cell implements CONSTANTA {
-    protected static Ocean Ocean1 = new Ocean();
+    protected static Ocean Ocean1 = new Ocean(); // Змінити назву
     protected Coordinate offset;
     protected char image;
 
