@@ -1,6 +1,6 @@
 package org.example;
 
-public class Prey extends Cell implements PreyInter {
+public class Prey extends Cell {
     protected int timeToReproduce;
     protected void moveFrom(Coordinate from,Coordinate to){
         Cell workCell;//                              тут не используется?

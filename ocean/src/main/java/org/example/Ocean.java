@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import static org.example.Cell.Ocean1;
 
-public class Ocean implements OceanInter, CONSTANTA{
+public class Ocean implements CONSTANTA{
     Scanner scanner = new Scanner(System.in);
     public int numRows;//???????????
     public int numCols;//???????????              Дружественный класс
@@ -83,8 +83,8 @@ public class Ocean implements OceanInter, CONSTANTA{
         int x, y;
         Coordinate empty;
         do{
-            x = (int) (Math.random()*68);//rand.nextIntBetween(0, numCols - 1);
-            y = (int) (Math.random()*25);//rand.nextIntBetween(0, numRows - 1);
+            x = rand.nextIntBetween(0, numCols - 1);
+            y = rand.nextIntBetween(0, numRows - 1);
         }while(cells[y][x].getImage() != DefaultImage);
         empty = cells[y][x].getOffset();
         //finalize                                                                  на будещее поменять
@@ -114,27 +114,27 @@ public class Ocean implements OceanInter, CONSTANTA{
         displayBorder();
     }
 
-    @Override
+
     public int getNumPrey() {
         return numPrey;
     }
 
-    @Override
+
     public int getNumPredator() {
         return numPredators;
     }
 
-    @Override
+
     public void setNumPrey(int num) {
         numPrey = num;
     }
 
-    @Override
+
     public void setNumPredators(int num) {
         numPredators = num;
     }
 
-    @Override
+
     public void initialize() {
         rand.initialize();
         numRows = MaxRows;
@@ -146,7 +146,7 @@ public class Ocean implements OceanInter, CONSTANTA{
         initCells();
     }
 
-    @Override
+
     public void run() throws InterruptedException {
         int numIterations = DefaultNumIterations;
         System.out.println();

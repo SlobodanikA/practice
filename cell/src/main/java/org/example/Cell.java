@@ -1,6 +1,6 @@
 package org.example;
 
-public class Cell implements CellInter{
+public class Cell implements CONSTANTA {
     protected static Ocean Ocean1 = new Ocean();
     protected Coordinate offset;
     protected char image;
@@ -70,27 +70,25 @@ public class Cell implements CellInter{
     public Cell(){
     }
 
-    @Override
     public Coordinate getOffset() {
         return offset;
     }
 
-    @Override
     public void setOffset(Coordinate anOffset) {
         offset = anOffset;
     }
 
-    @Override
+
     public char getImage() {
         return image;
     }
 
-    @Override
+
     public void display() {
         System.out.print(image);
     }
 
-    @Override
+
     public void process() {
 
     }
