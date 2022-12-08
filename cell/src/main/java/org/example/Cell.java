@@ -1,10 +1,10 @@
 package org.example;
 
 public class Cell implements CONSTANTA {
-    protected Ocean Viewer = new Ocean(); // Змінити назву
+    protected Ocean Viewer = null; // Змінити назву
     protected Coordinate offset;
     protected char image;
-    protected boolean isProcess = false;
+    protected boolean isProcess = false;  // Перенести реалізацію в Океан
 
     protected Cell getCallAt(Coordinate aCord) {
         return Viewer.cells[aCord.getY()][aCord.getX()];
@@ -61,10 +61,11 @@ public class Cell implements CONSTANTA {
         return Viewer.cells[offset.getY()][xValue];
     }
     protected Cell reproduce(Coordinate anOffset){
-        Cell temp = new Cell(anOffset);
+        Cell temp = new Cell(anOffset, this.Viewer);
         return temp;
     }
-    public Cell(Coordinate aCord) {
+    public Cell(Coordinate aCord, Ocean l) {
+        Viewer = l;
         offset = new Coordinate(aCord);
         image = DefaultImage;
     }

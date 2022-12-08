@@ -2,13 +2,13 @@ package org.example;
 
 public class Predator extends Prey {
     protected Cell reproduce(Coordinate anOffset){ //               Не дает сделать приватным
-        Predator temp = new Predator(anOffset);
+        Predator temp = new Predator(anOffset, this.Viewer);
         Viewer.setNumPredators(Viewer.getNumPredator()+1);
         return temp;
     }
     protected int timeToFeed;
-    public Predator(Coordinate aCoord) {
-        super(aCoord);
+    public Predator(Coordinate aCoord, Ocean l) {
+        super(aCoord, l);
         timeToFeed = TimeToFeed;
         image = DefaultPredatorImage;
     }
@@ -19,7 +19,7 @@ public class Predator extends Prey {
         Coordinate toCoord;
         --timeToFeed;
         if (timeToFeed <= 0){
-            assignCellAt(offset, new Cell(offset));
+            assignCellAt(offset, new Cell(offset, this.Viewer));
             Viewer.setNumPredators(Viewer.getNumPredator()-1);
             //finalize();                                          Как удалять и нужно ли вообще?
         }

@@ -4,14 +4,21 @@ import java.util.Scanner;
 
 public class Ocean implements CONSTANTA{
     Scanner scanner = new Scanner(System.in);
-    public int numRows;//???????????
-    public int numCols;//???????????              Дружественный класс
+    private int numIterations;
+    public int numRows; //???????????
+    public int numCols; //???????????              Дружественный класс
     private int size;
     private int numPrey;
     private int numPredators;
     private int numObstacles;
     public Random rand = new Random();//???????????
-    public Cell cells[][] = new Cell[MaxRows][MaxCols];//???????????
+    protected Cell cells[][] = new Cell[MaxRows][MaxCols];//???????????
+    protected boolean wasInProcess[][] = new boolean[MaxRows][MaxCols];
+
+
+    public char getCellImage(int yCoord, int xCoord){
+        return cells[yCoord][xCoord].getImage();
+    }
     private void initCells(){
         addEmtyCells();
 
@@ -44,19 +51,15 @@ public class Ocean implements CONSTANTA{
         addObstacles();
         addPredators();
         addPrey();
-        displayStats(-1);
-        displayCells();
-        displayBorder();
-        for(int row = 0; row < numRows; row++) {
-            for (int col = 0; col < numCols; col++) {
-                cells[row][col].Viewer = this;
-            }
-        }
+        OceanViewer.displayStats(0, numObstacles,numPredators,numPrey);
+        OceanViewer.displayBorder(numCols);
+        OceanViewer.displayCells(numRows,numCols, this);
+        OceanViewer.displayBorder(numCols);
     }
     private void addEmtyCells(){
         for(int row = 0; row<numRows;row++){
             for(int col = 0; col <numCols; col++){
-                cells[row][col] = new Cell(new Coordinate(col, row));               // В координате переменные перевернуты посмотреть
+                cells[row][col] = new Cell(new Coordinate(col, row),this);               // В координате переменные перевернуты посмотреть
             }
         }
     }
@@ -64,21 +67,21 @@ public class Ocean implements CONSTANTA{
         Coordinate empty;
         for(int count = 0; count < numObstacles; count++){
             empty = getEmptyCellCoord();
-            cells[empty.getY()][empty.getX()] = new Obstacle(empty);
+            cells[empty.getY()][empty.getX()] = new Obstacle(empty, this);
         }
     }
     private void addPredators(){
         Coordinate empty;
         for(int count = 0; count < numPredators; count++){
             empty = getEmptyCellCoord();
-            cells[empty.getY()][empty.getX()] = new Predator(empty);
+            cells[empty.getY()][empty.getX()] = new Predator(empty, this);
         }
     }
     private void addPrey(){
         Coordinate empty;
         for(int count = 0; count < numPrey; count++){
             empty = getEmptyCellCoord();
-            cells[empty.getY()][empty.getX()] = new Prey(empty);
+            cells[empty.getY()][empty.getX()] = new Prey(empty, this);
         }
     }
     private Coordinate getEmptyCellCoord(){
@@ -91,29 +94,6 @@ public class Ocean implements CONSTANTA{
         empty = cells[y][x].getOffset();
         //finalize                                                                  на будещее поменять
         return empty;
-    }
-    private void displayBorder(){
-        for(int col = 0; col < numCols; col++){
-            System.out.print("*");
-        }
-        System.out.println();
-    }
-    private void displayCells(){
-        for(int row = 0; row < numRows;row++){
-            for(int col = 0; col < numCols; col++){
-                cells[row][col].display();
-            }
-            System.out.println();
-        }
-    }
-    private void displayStats(int iteration){
-        System.out.println();
-        System.out.println();
-        System.out.print("Iteration number: "+ ++iteration);
-        System.out.print(" Obstacles: "+ numObstacles);
-        System.out.print(" Predators: "+ numPredators);
-        System.out.println(" Prey: "+ numPrey);
-        displayBorder();
     }
 
 
@@ -150,17 +130,8 @@ public class Ocean implements CONSTANTA{
 
 
     public void run() throws InterruptedException {
-        int numIterations = DefaultNumIterations;
-        System.out.println();
-        System.out.println();
-        System.out.print("Enter number of iterations (default max = 1000): ");
-        numIterations = scanner.nextInt();
-        if(numIterations > 1000){
-            numIterations = 1000;
-        }
-        System.out.println();
-        System.out.println("Number of iterations = " + numIterations);
-        System.out.println("begin run...");
+        setIterations(OceanViewer.enterIterations());
+        OceanViewer.startSim(numIterations);
         for(int iter = 0; iter < numIterations; iter++){
             if(numPredators > 0&&numPrey>0){
                 for(int row = 0; row < numRows; row++){
@@ -175,17 +146,17 @@ public class Ocean implements CONSTANTA{
                         cells[row][col].isProcess = false;
                     }
                 }
-                displayStats(iter);
-                displayCells();
-                displayBorder();
+                OceanViewer.displayStats((iter + 1),numObstacles,numPredators,numPrey);
+                OceanViewer.displayBorder(numCols);
+                OceanViewer.displayCells(numRows,numCols,this); // зробити цикл де передається картинка ОКРЕМИМ МЕТОДОМ
+                OceanViewer.displayBorder(numCols);
                 Thread.sleep(2000);
             }
-            Thread.sleep(2000);
+
         }
-        System.out.println();
-        System.out.println();
-        System.out.println("End of Simulations");
-
-
+        OceanViewer.endSim();
+    }
+    public void setIterations(int numIt){
+        numIterations = numIt;
     }
 }

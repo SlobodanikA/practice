@@ -15,17 +15,17 @@ public class Prey extends Cell {
                 assignCellAt(from, reproduce(from));
             }
             else{
-                assignCellAt(from, new Cell(from));
+                assignCellAt(from, new Cell(from, this.Viewer));
             }
         }
     }
     protected Cell reproduce(Coordinate anOffset){
-        Prey temp = new Prey(anOffset);
+        Prey temp = new Prey(anOffset, this.Viewer);
         Viewer.setNumPrey(Viewer.getNumPrey()+1);
         return temp;
     }
-    public Prey(Coordinate aCoord){
-        super(aCoord);
+    public Prey(Coordinate aCoord,Ocean l){
+        super(aCoord, l);
         timeToReproduce=TimeToReproduce;
         image = DefaultPreyImage;
     }
