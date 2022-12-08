@@ -34,9 +34,5 @@ public class Predator extends Prey {
                 super.process();
             }
         }
-        afterProcess();
-    }
-    public void afterProcess() {
-        super.afterProcess();
     }
 }

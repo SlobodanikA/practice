@@ -2,121 +2,21 @@ package org.example;
 
 import java.util.Scanner;
 
-public class Ocean implements CONSTANTA{
+public class Ocean implements CONSTANTA {
     Scanner scanner = new Scanner(System.in);
     private int numIterations;
-    public int numRows; //???????????
-    public int numCols; //???????????              Дружественный класс
+    private int numRows;
+    private int numCols;
     private int size;
     private int numPrey;
     private int numPredators;
     private int numObstacles;
-    public Random rand = new Random();//???????????
-    protected Cell cells[][] = new Cell[MaxRows][MaxCols];//???????????
-    protected boolean wasInProcess[][] = new boolean[MaxRows][MaxCols];
-
-
-    public char getCellImage(int yCoord, int xCoord){
-        return cells[yCoord][xCoord].getImage();
+    private Cell cells[][] = new Cell[MaxRows][MaxCols];
+    private boolean wasInProcess[][] = new boolean[MaxRows][MaxCols];
+    public Random rand = new Random();
+    public Ocean(){
+        initialize();
     }
-    private void initCells(){
-        addEmtyCells();
-
-        System.out.println();
-        System.out.println();
-        System.out.print("Enter number of obstacles(default = 75):  ");
-        numObstacles = scanner.nextInt();
-        if(numObstacles >= size) { //                             В примере было = поменял на >=
-            numObstacles = size;
-        }
-        System.out.println();
-        System.out.println("Number of obstacles accepted = " + numObstacles);
-        System.out.println();
-        System.out.print("Enter number of predators (default = 20): ");
-        numPredators = scanner.nextInt();
-        if(numPredators >= (size-numObstacles)){
-            numPredators = size-numObstacles;
-        }
-        System.out.println();
-        System.out.println("Number of predators accepted = " + numPredators);
-        System.out.println();
-        System.out.print("Enter number of prey (default = 150): ");
-        numPrey = scanner.nextInt();
-        if(numPrey >= (size-numObstacles-numPredators)){
-            numPrey = size - numObstacles - numPredators;
-        }
-        System.out.println();
-        System.out.println("Number of prey accepted = " + numPrey);
-        System.out.println();
-        addObstacles();
-        addPredators();
-        addPrey();
-        OceanViewer.displayStats(0, numObstacles,numPredators,numPrey);
-        OceanViewer.displayBorder(numCols);
-        OceanViewer.displayCells(numRows,numCols, this);
-        OceanViewer.displayBorder(numCols);
-    }
-    private void addEmtyCells(){
-        for(int row = 0; row<numRows;row++){
-            for(int col = 0; col <numCols; col++){
-                cells[row][col] = new Cell(new Coordinate(col, row),this);               // В координате переменные перевернуты посмотреть
-            }
-        }
-    }
-    private void addObstacles(){
-        Coordinate empty;
-        for(int count = 0; count < numObstacles; count++){
-            empty = getEmptyCellCoord();
-            cells[empty.getY()][empty.getX()] = new Obstacle(empty, this);
-        }
-    }
-    private void addPredators(){
-        Coordinate empty;
-        for(int count = 0; count < numPredators; count++){
-            empty = getEmptyCellCoord();
-            cells[empty.getY()][empty.getX()] = new Predator(empty, this);
-        }
-    }
-    private void addPrey(){
-        Coordinate empty;
-        for(int count = 0; count < numPrey; count++){
-            empty = getEmptyCellCoord();
-            cells[empty.getY()][empty.getX()] = new Prey(empty, this);
-        }
-    }
-    private Coordinate getEmptyCellCoord(){
-        int x, y;
-        Coordinate empty;
-        do{
-            x = rand.nextIntBetween(0, numCols - 1);
-            y = rand.nextIntBetween(0, numRows - 1);
-        }while(cells[y][x].getImage() != DefaultImage);
-        empty = cells[y][x].getOffset();
-        //finalize                                                                  на будещее поменять
-        return empty;
-    }
-
-
-    public int getNumPrey() {
-        return numPrey;
-    }
-
-
-    public int getNumPredator() {
-        return numPredators;
-    }
-
-
-    public void setNumPrey(int num) {
-        numPrey = num;
-    }
-
-
-    public void setNumPredators(int num) {
-        numPredators = num;
-    }
-
-
     public void initialize() {
         rand.initialize();
         numRows = MaxRows;
@@ -127,36 +27,133 @@ public class Ocean implements CONSTANTA{
         numPrey = DefaultNumPrey;
         initCells();
     }
+    private void initCells() {
+        addEmtyCells();
+        setNumObstacles(OceanViewer.enterObstacles());
+        setNumPredators(OceanViewer.enterPredators(this));
+        setNumPrey(OceanViewer.enterPrey(this));
+        addObstacles();
+        addPredators();
+        addPrey();
+        OceanViewer.displayStats(this, -1);
+        OceanViewer.displayBorder(numCols);
+        OceanViewer.displayCells(this);
+        OceanViewer.displayBorder(numCols);
+    }
+    public void setNumIterations(int numIt) {
+        numIterations = numIt;
+    }
+    public void setNumRows(int numRows) {
+        this.numRows = numRows;
+    }
+    public void setNumObstacles(int num){
+        numObstacles = num;
+    }
+    public void setNumPrey(int num) {
+        numPrey = num;
+    }
+    public void setNumPredators(int num) {
+        numPredators = num;
+    }
+    public void setNumCols(int numCols) {
+        this.numCols = numCols;
+    }
+    public void setCell(Cell cell, Coordinate aCoord) {
+        cells[aCoord.getY()][aCoord.getX()] = cell;
+    }
+    public char getCellImage(int yCoord, int xCoord) {
+        return cells[yCoord][xCoord].getImage();
+    }
+    public Cell getCell(int yCoord, int xCoord) {
+        return cells[yCoord][xCoord];
+    }
+    private Coordinate getEmptyCellCoord() {
+        int x, y;
+        Coordinate empty;
+        do {
+            x = rand.nextIntBetween(0, numCols - 1);
+            y = rand.nextIntBetween(0, numRows - 1);
+        } while (cells[y][x].getImage() != DefaultImage);
+        empty = cells[y][x].getOffset();
+        //finalize                                                                  на будещее поменять
+        return empty;
+    }
+    public int getNumIterations(){return numIterations;}
+    public int getNumObstacles(){
+        return numObstacles;
+    }
+    public int getNumPrey() {
+        return numPrey;
+    }
+    public int getNumPredator() {
+        return numPredators;
+    }
+    public int getNumRows(){
+        return numRows;
+    }
+    public int getNumCols(){
+        return numCols;
+    }
 
+    private void addEmtyCells() {
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numCols; col++) {
+                cells[row][col] = new Cell(new Coordinate(col, row), this);               // В координате переменные перевернуты посмотреть
+            }
+        }
+    }
 
+    private void addObstacles() {
+        Coordinate empty;
+        for (int count = 0; count < numObstacles; count++) {
+            empty = getEmptyCellCoord();
+            cells[empty.getY()][empty.getX()] = new Obstacle(empty, this);
+        }
+    }
+
+    private void addPredators() {
+        Coordinate empty;
+        for (int count = 0; count < numPredators; count++) {
+            empty = getEmptyCellCoord();
+            cells[empty.getY()][empty.getX()] = new Predator(empty, this);
+        }
+    }
+
+    private void addPrey() {
+        Coordinate empty;
+        for (int count = 0; count < numPrey; count++) {
+            empty = getEmptyCellCoord();
+            cells[empty.getY()][empty.getX()] = new Prey(empty, this);
+        }
+    }
     public void run() throws InterruptedException {
-        setIterations(OceanViewer.enterIterations());
+        setNumIterations(OceanViewer.enterIterations());
         OceanViewer.startSim(numIterations);
-        for(int iter = 0; iter < numIterations; iter++){
-            if(numPredators > 0&&numPrey>0){
-                for(int row = 0; row < numRows; row++){
-                    for(int col = 0; col < numCols; col++){
-                        if(!cells[row][col].isProcess) {
+        for (int iter = 0; iter < numIterations; iter++) {
+            if (numPredators > 0 && numPrey > 0) {
+                for (int row = 0; row < numRows; row++) {
+                    for (int col = 0; col < numCols; col++) {
+                        if (!wasInProcess[row][col]) {
+                            Cell workCell = cells[row][col];
                             cells[row][col].process();
+                            Coordinate workCoord = workCell.getOffset();
+                            wasInProcess[workCoord.getY()][workCoord.getX()] = true;
                         }
                     }
                 }
-                for(int row = 0; row < numRows; row++) {
+                for (int row = 0; row < numRows; row++) {
                     for (int col = 0; col < numCols; col++) {
-                        cells[row][col].isProcess = false;
+                        wasInProcess[row][col] = false;
                     }
                 }
-                OceanViewer.displayStats((iter + 1),numObstacles,numPredators,numPrey);
+                OceanViewer.displayStats(this, iter);
                 OceanViewer.displayBorder(numCols);
-                OceanViewer.displayCells(numRows,numCols,this); // зробити цикл де передається картинка ОКРЕМИМ МЕТОДОМ
+                OceanViewer.displayCells(this);
                 OceanViewer.displayBorder(numCols);
                 Thread.sleep(2000);
             }
 
         }
         OceanViewer.endSim();
-    }
-    public void setIterations(int numIt){
-        numIterations = numIt;
     }
 }

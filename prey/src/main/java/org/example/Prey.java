@@ -33,9 +33,5 @@ public class Prey extends Cell {
         Coordinate toCoord;
         toCoord = getEmptyNeighborCoord();
         moveFrom(offset, toCoord);
-        afterProcess();
-    }
-    public void afterProcess(){
-        super.afterProcess();
     }
 }
