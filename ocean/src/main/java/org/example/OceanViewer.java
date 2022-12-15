@@ -12,10 +12,24 @@ public class OceanViewer extends CONSTANTA {
         }
     }
     protected static int enterIterations(){
+        int numIt;
         System.out.println();
         System.out.println();
         System.out.print("Enter number of iterations (default max = 1000): ");
-        int numIt = scanner.nextInt();
+        while(!scanner.hasNextInt()){
+            scanner.next();
+        }
+        numIt = scanner.nextInt();
+        try {
+            if (numIt >= 10000 || numIt < 0) {
+                throw new IncorrectNumberException("Incorrect number. Changed to default",DefaultNumIterations);
+            }
+        }
+        catch(IncorrectNumberException e){
+            System.out.println(e.getMessage());
+            numIt = e.getDefaultValue();
+        }
+
         if(numIt > DefaultNumIterations){
             numIt = DefaultNumIterations;
         }
@@ -27,19 +41,17 @@ public class OceanViewer extends CONSTANTA {
         int numObstacles = 0;
         System.out.println();
         System.out.print("Enter number of obstacles(default = 75):  ");
-        try {
-            numObstacles = Integer.parseInt(scanner.nextLine());
+        while(!scanner.hasNextInt()){
+            scanner.next();
         }
-        catch (NumberFormatException e){
-            flag = true;
-        }
+        numObstacles = scanner.nextInt();
         try {
-            if (numObstacles >= MaxRows * MaxCols || numObstacles < 0 ||flag) {
+            if (numObstacles >= MaxRows * MaxCols || numObstacles < 0) {
                 throw new IncorrectNumberException("Incorrect number. Changed to default",DefaultNumObstacles);
             }
         }
         catch(IncorrectNumberException e){
-            e.getMessage();
+            System.out.println(e.getMessage());
             numObstacles = e.getDefaultValue();
         }
 
@@ -50,45 +62,43 @@ public class OceanViewer extends CONSTANTA {
     protected static int enterPredators(Ocean l){
         boolean flag = false;
         int numPredators = 0;
-        System.out.println();
-        System.out.print("Enter number of predators (default = 20): ");
         try {
-            numPredators = Integer.parseInt(scanner.nextLine());
-        }
-        catch (NumberFormatException e){
-            flag = true;
-        }
-        try {
-            if (numPredators >= MaxRows * MaxCols - l.getNumObstacles() || numPredators < 0 ||flag) {
-                throw new IncorrectNumberException("Incorrect number. Changed to default",DefaultNumPredators);
+            System.out.println();
+            System.out.print("Enter number of predators (default = 20): ");
+                while(!scanner.hasNextInt()){
+                    scanner.next();
+                }
+                numPredators = scanner.nextInt();
+            if (numPredators >= MaxRows * MaxCols - l.getNumObstacles() || numPredators < 0 || flag) {
+                throw new IncorrectNumberException("Incorrect number. Changed to default", DefaultNumPredators);
             }
         }
         catch(IncorrectNumberException e){
-            e.getMessage();
+            System.out.println(e.getMessage());
             numPredators = e.getDefaultValue();
         }
-        System.out.println();
-        System.out.println("Number of predators accepted = " + numPredators);
-        return numPredators;
+        finally {
+            System.out.println();
+            System.out.println("Number of predators accepted = " + numPredators);
+            return numPredators;
+        }
     }
     protected static int enterPrey(Ocean l){
         boolean flag = false;
         int numPrey = 0;
         System.out.println();
         System.out.print("Enter number of prey (default = 150): ");
-        try {
-            numPrey= Integer.parseInt(scanner.nextLine());
+        while(!scanner.hasNextInt()){
+            scanner.next();
         }
-        catch (NumberFormatException e){
-            flag = true;
-        }
+        numPrey = scanner.nextInt();
         try {
-            if (numPrey >= MaxRows * MaxCols - l.getNumPredator() - l.getNumObstacles()|| numPrey < 0 ||flag) {
+            if (numPrey >= MaxRows * MaxCols - l.getNumPredator() - l.getNumObstacles()|| numPrey < 0) {
                 throw new IncorrectNumberException("Incorrect number. Changed to default",DefaultNumPrey);
             }
         }
         catch(IncorrectNumberException e){
-            e.getMessage();
+            System.out.println(e.getMessage());
             numPrey = e.getDefaultValue();
         }
         System.out.println();

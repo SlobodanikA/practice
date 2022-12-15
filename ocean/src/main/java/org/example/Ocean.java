@@ -15,7 +15,7 @@ public class Ocean extends CONSTANTA {
     public Ocean() throws IncorrectNumberException{
         initialize();
     }
-    public void initialize()throws IncorrectNumberException {
+    public void initialize() throws IncorrectNumberException {
         numRows = MaxRows;
         numCols = MaxCols;
         size = numCols * numRows;
