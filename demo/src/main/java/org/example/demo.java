@@ -6,7 +6,7 @@ package org.example;
  */
 public class demo
 {
-    public static void main( String[] args ) throws InterruptedException {
+    public static void main( String[] args ) throws InterruptedException, IncorrectNumberException {
         Ocean myOcean = new Ocean();
         myOcean.run();
     }

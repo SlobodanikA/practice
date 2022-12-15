@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.Scanner;
-
-public class Ocean implements CONSTANTA {
-    Scanner scanner = new Scanner(System.in);
+public class Ocean extends CONSTANTA {
     private int numIterations;
     private int numRows;
     private int numCols;
@@ -13,12 +10,12 @@ public class Ocean implements CONSTANTA {
     private int numObstacles;
     private Cell cells[][] = new Cell[MaxRows][MaxCols];
     private boolean wasInProcess[][] = new boolean[MaxRows][MaxCols];
+    private Cell emptyCell = new Cell();
     public Random rand = new Random();
-    public Ocean(){
+    public Ocean() throws IncorrectNumberException{
         initialize();
     }
-    public void initialize() {
-        rand.initialize();
+    public void initialize()throws IncorrectNumberException {
         numRows = MaxRows;
         numCols = MaxCols;
         size = numCols * numRows;
@@ -27,7 +24,7 @@ public class Ocean implements CONSTANTA {
         numPrey = DefaultNumPrey;
         initCells();
     }
-    private void initCells() {
+    private void initCells() throws IncorrectNumberException {
         addEmtyCells();
         setNumObstacles(OceanViewer.enterObstacles());
         setNumPredators(OceanViewer.enterPredators(this));
@@ -94,7 +91,6 @@ public class Ocean implements CONSTANTA {
     public int getNumCols(){
         return numCols;
     }
-
     private void addEmtyCells() {
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
@@ -102,7 +98,6 @@ public class Ocean implements CONSTANTA {
             }
         }
     }
-
     private void addObstacles() {
         Coordinate empty;
         for (int count = 0; count < numObstacles; count++) {
@@ -110,7 +105,6 @@ public class Ocean implements CONSTANTA {
             cells[empty.getY()][empty.getX()] = new Obstacle(empty, this);
         }
     }
-
     private void addPredators() {
         Coordinate empty;
         for (int count = 0; count < numPredators; count++) {
@@ -118,7 +112,6 @@ public class Ocean implements CONSTANTA {
             cells[empty.getY()][empty.getX()] = new Predator(empty, this);
         }
     }
-
     private void addPrey() {
         Coordinate empty;
         for (int count = 0; count < numPrey; count++) {
@@ -150,7 +143,7 @@ public class Ocean implements CONSTANTA {
                 OceanViewer.displayBorder(numCols);
                 OceanViewer.displayCells(this);
                 OceanViewer.displayBorder(numCols);
-                Thread.sleep(2000);
+                Thread.sleep(NumBetweenIterations);
             }
 
         }

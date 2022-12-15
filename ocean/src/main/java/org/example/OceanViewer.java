@@ -1,8 +1,7 @@
 package org.example;
 
 import java.util.Scanner;
-
-public class OceanViewer implements CONSTANTA {
+public class OceanViewer extends CONSTANTA {
     private static Scanner scanner = new Scanner(System.in);
     protected static void displayCells(Ocean l){
         for(int row = 0; row < l.getNumRows(); row++){
@@ -17,39 +16,80 @@ public class OceanViewer implements CONSTANTA {
         System.out.println();
         System.out.print("Enter number of iterations (default max = 1000): ");
         int numIt = scanner.nextInt();
-        if(numIt > 1000){
-            numIt = 1000;
+        if(numIt > DefaultNumIterations){
+            numIt = DefaultNumIterations;
         }
         return numIt;
     }
-    protected static int enterObstacles(){
+    protected static int enterObstacles() {
+        boolean flag = false;
+        //String Word = "Слово";
+        int numObstacles = 0;
         System.out.println();
         System.out.print("Enter number of obstacles(default = 75):  ");
-        int numObstacles = scanner.nextInt();
-        if (numObstacles >= MaxRows*MaxCols) {
-            numObstacles = MaxRows*MaxCols;
+        try {
+            numObstacles = Integer.parseInt(scanner.nextLine());
         }
+        catch (NumberFormatException e){
+            flag = true;
+        }
+        try {
+            if (numObstacles >= MaxRows * MaxCols || numObstacles < 0 ||flag) {
+                throw new IncorrectNumberException("Incorrect number. Changed to default",DefaultNumObstacles);
+            }
+        }
+        catch(IncorrectNumberException e){
+            e.getMessage();
+            numObstacles = e.getDefaultValue();
+        }
+
         System.out.println();
         System.out.println("Number of obstacles accepted = " + numObstacles);
         return numObstacles;
     }
     protected static int enterPredators(Ocean l){
+        boolean flag = false;
+        int numPredators = 0;
         System.out.println();
         System.out.print("Enter number of predators (default = 20): ");
-        int numPredators = scanner.nextInt();
-        if (numPredators >= (MaxCols*MaxRows - l.getNumObstacles())) {
-            numPredators = MaxCols*MaxRows - l.getNumObstacles();
+        try {
+            numPredators = Integer.parseInt(scanner.nextLine());
+        }
+        catch (NumberFormatException e){
+            flag = true;
+        }
+        try {
+            if (numPredators >= MaxRows * MaxCols - l.getNumObstacles() || numPredators < 0 ||flag) {
+                throw new IncorrectNumberException("Incorrect number. Changed to default",DefaultNumPredators);
+            }
+        }
+        catch(IncorrectNumberException e){
+            e.getMessage();
+            numPredators = e.getDefaultValue();
         }
         System.out.println();
         System.out.println("Number of predators accepted = " + numPredators);
         return numPredators;
     }
     protected static int enterPrey(Ocean l){
+        boolean flag = false;
+        int numPrey = 0;
         System.out.println();
         System.out.print("Enter number of prey (default = 150): ");
-        int numPrey = scanner.nextInt();
-        if (numPrey >= (MaxRows*MaxCols - l.getNumObstacles() - l.getNumPredator())) {
-            numPrey = MaxCols*MaxRows - l.getNumObstacles() - l.getNumPredator();
+        try {
+            numPrey= Integer.parseInt(scanner.nextLine());
+        }
+        catch (NumberFormatException e){
+            flag = true;
+        }
+        try {
+            if (numPrey >= MaxRows * MaxCols - l.getNumPredator() - l.getNumObstacles()|| numPrey < 0 ||flag) {
+                throw new IncorrectNumberException("Incorrect number. Changed to default",DefaultNumPrey);
+            }
+        }
+        catch(IncorrectNumberException e){
+            e.getMessage();
+            numPrey = e.getDefaultValue();
         }
         System.out.println();
         System.out.println("Number of prey accepted = " + numPrey);
@@ -58,6 +98,8 @@ public class OceanViewer implements CONSTANTA {
     protected static void displayStats(Ocean l, int iter){
         System.out.println();
         System.out.println();
+        String k = "sdfsdfs";
+
         System.out.print("Iteration number: "+ (iter+1));
         System.out.print(" Obstacles: "+ l.getNumObstacles());
         System.out.print(" Predators: "+ l.getNumPredator());

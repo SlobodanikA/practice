@@ -3,60 +3,10 @@ package org.example;
 
 
 public class Random {
-    private static boolean first = true;
-    private final int MAX = 32767;
-    private int seed1;
-    private int seed2;
-
-
-    public void initialize(){
-        seed1 = 3797;
-        seed2 = 2117;
-    }
-
-
-    public void init(int s1, int s2){
-        seed1 = s1;
-        seed2 = s2;
-    }
-
-
-    public long randReal() {
+    public static int nextIntBetween(int low, int high) {
+        float t;
         int c;
-        if(first){
-            seed1 *= 2;
-            seed2 *= 2;
-            if(seed1 > MAX){
-                seed1 -= MAX;
-            }
-            if(seed2 > MAX){
-                seed2 -= MAX;
-            }
-            first = false;
-            for(int i = 1; i <= 30; i++){
-                randReal();
-            }
-        }
-        c = seed1 + seed2;
-        if(c > MAX){
-            c -= MAX;
-        }
-        c *= 2;
-        if(c > MAX){
-            c -= MAX;
-        }
-        seed1 = seed2;
-        seed2 = c;
-        return (long) (c/32767.0);
-    }
-
-
-    public int nextIntBetween(int low, int high) {
-        float r, t;
-        int c;
-
-        r = (float) (high - low + 1.0);
-        t = (float) ((Math.random() * high)+low);
+        t = (float) ((Math.random() * (high-low))+low);
         c = (int) t;
         return (c);
     }

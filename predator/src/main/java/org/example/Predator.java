@@ -1,20 +1,17 @@
 package org.example;
 
 public class Predator extends Prey {
+    protected int timeToFeed;
     protected Cell reproduce(Coordinate anOffset){ //               Не дает сделать приватным
         Predator temp = new Predator(anOffset, this.Viewer);
         Viewer.setNumPredators(Viewer.getNumPredator()+1);
         return temp;
     }
-    protected int timeToFeed;
     public Predator(Coordinate aCoord, Ocean l) {
         super(aCoord, l);
         timeToFeed = TimeToFeed;
         image = DefaultPredatorImage;
     }
-
-
-
     public void process() {
         Coordinate toCoord;
         --timeToFeed;

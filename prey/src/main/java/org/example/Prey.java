@@ -26,7 +26,7 @@ public class Prey extends Cell {
     }
     public Prey(Coordinate aCoord,Ocean l){
         super(aCoord, l);
-        timeToReproduce=TimeToReproduce;
+        timeToReproduce= Random.nextIntBetween(4,8); //Допускаються числа
         image = DefaultPreyImage;
     }
     public void process(){

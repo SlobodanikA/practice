@@ -25,6 +25,6 @@ public class Coordinate {
             return(x == aCoord.x && y == aCoord.y);
       }
       public boolean notEqual(Coordinate aCoord){
-            return(x != aCoord.x || y != aCoord.y)    ;
+            return(x != aCoord.x || y != aCoord.y);
       }
 }

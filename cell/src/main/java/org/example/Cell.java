@@ -1,15 +1,25 @@
 package org.example;
 
-public class Cell implements CONSTANTA {
+public class Cell extends CONSTANTA {
     protected Ocean Viewer = null;
     protected Coordinate offset;
     protected char image;
 
+    public Cell(Coordinate aCord, Ocean l) {
+        Viewer = l;
+        offset = new Coordinate(aCord);
+        image = DefaultImage;
+    }
+    public char getImage() {
+        return image;
+    }
+    public Cell(){
+    }
     protected Cell getCallAt(Coordinate aCord) {
         return Viewer.getCell(aCord.getY(),aCord.getX());
     }
     protected Cell getNeighborWithImage(char anImage){
-        Cell neighbors[] = new Cell[4];
+        Cell neighbors[] = new Cell[NumOfNeighbors];
         int count = 0;
         if(north().getImage() == anImage){
             neighbors[count++] = north();
@@ -27,17 +37,20 @@ public class Cell implements CONSTANTA {
             return this;
         }
         else{
-            return neighbors[Viewer.rand.nextIntBetween(0,count-1)];
+            return neighbors[Random.nextIntBetween(0,count-1)];
         }
-    }
-    protected void assignCellAt(Coordinate aCord, Cell aCell){
-        Viewer.setCell(aCell,aCord);
     }
     protected Coordinate getEmptyNeighborCoord(){
         return getNeighborWithImage(DefaultImage).getOffset();
     }
     protected Coordinate getPreyNeighborCoord(){
         return getNeighborWithImage(DefaultPreyImage).getOffset();
+    }
+    public Coordinate getOffset() {
+        return offset;
+    }
+    protected void assignCellAt(Coordinate aCord, Cell aCell){
+        Viewer.setCell(aCell,aCord);
     }
     protected Cell north(){
         int yValue;
@@ -63,33 +76,12 @@ public class Cell implements CONSTANTA {
         Cell temp = new Cell(anOffset, this.Viewer);
         return temp;
     }
-    public Cell(Coordinate aCord, Ocean l) {
-        Viewer = l;
-        offset = new Coordinate(aCord);
-        image = DefaultImage;
-    }
-    public Cell(){
-    }
-
-    public Coordinate getOffset() {
-        return offset;
-    }
-
     public void setOffset(Coordinate anOffset) {
         offset = anOffset;
     }
-
-
-    public char getImage() {
-        return image;
-    }
-
-
     public void display() {
         System.out.print(image);
     }
-
-
     public void process() {
 
     }
