@@ -16,6 +16,8 @@
     <module>demo</module>
       <module>constants</module>
       <module>exception</module>
+      <module>visual</module>
+      <module>validator</module>
   </modules>
   <packaging>pom</packaging>
 

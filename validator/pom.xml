@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>demo</artifactId>
+    <artifactId>validator</artifactId>
     <packaging>jar</packaging>
 
-    <name>demo</name>
+    <name>validator</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -26,13 +26,19 @@
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>ocean</artifactId>
+            <artifactId>exception</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>visual</artifactId>
+            <artifactId>constants</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>ocean</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

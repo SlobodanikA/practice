@@ -14,6 +14,7 @@ public class Ocean extends CONSTANTA {
     public Random rand = new Random();
     public Ocean() throws IncorrectNumberException{
         initialize();
+
     }
     public void initialize() throws IncorrectNumberException {
         numRows = MaxRows;
@@ -58,7 +59,7 @@ public class Ocean extends CONSTANTA {
     public void setCell(Cell cell, Coordinate aCoord) {
         cells[aCoord.getY()][aCoord.getX()] = cell;
     }
-    public char getCellImage(int yCoord, int xCoord) {
+    public String getCellImage(int yCoord, int xCoord) {
         return cells[yCoord][xCoord].getImage();
     }
     public Cell getCell(int yCoord, int xCoord) {
@@ -119,7 +120,7 @@ public class Ocean extends CONSTANTA {
             cells[empty.getY()][empty.getX()] = new Prey(empty, this);
         }
     }
-    public void run() throws InterruptedException {
+    public void workMetod() throws InterruptedException {
         setNumIterations(OceanViewer.enterIterations());
         OceanViewer.startSim(numIterations);
         for (int iter = 0; iter < numIterations; iter++) {

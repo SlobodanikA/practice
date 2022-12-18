@@ -3,14 +3,14 @@ package org.example;
 public class Cell extends CONSTANTA {
     protected Ocean Viewer = null;
     protected Coordinate offset;
-    protected char image;
+    protected String image;
 
     public Cell(Coordinate aCord, Ocean l) {
         Viewer = l;
         offset = new Coordinate(aCord);
         image = DefaultImage;
     }
-    public char getImage() {
+    public String getImage() {
         return image;
     }
     public Cell(){
@@ -18,7 +18,7 @@ public class Cell extends CONSTANTA {
     protected Cell getCallAt(Coordinate aCord) {
         return Viewer.getCell(aCord.getY(),aCord.getX());
     }
-    protected Cell getNeighborWithImage(char anImage){
+    protected Cell getNeighborWithImage(String anImage){
         Cell neighbors[] = new Cell[NumOfNeighbors];
         int count = 0;
         if(north().getImage() == anImage){
