@@ -111,7 +111,7 @@ public class OceanViewer extends CONSTANTA {
 
     protected static void displayBorder(int numCols) {
         for (int col = 0; col < numCols; col++) {
-            System.out.print("*");
+            System.out.print(BorderImage);
         }
         System.out.println();
     }

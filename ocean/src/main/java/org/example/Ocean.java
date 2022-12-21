@@ -121,6 +121,8 @@ public class Ocean extends CONSTANTA {
         }
     }
     public void workMetod() throws InterruptedException {
+        //OceanWindow OW = new OceanWindow();
+
         setNumIterations(OceanViewer.enterIterations());
         OceanViewer.startSim(numIterations);
         for (int iter = 0; iter < numIterations; iter++) {
@@ -140,6 +142,7 @@ public class Ocean extends CONSTANTA {
                         wasInProcess[row][col] = false;
                     }
                 }
+                //OW.OneIterationOutput(this);
                 OceanViewer.displayStats(this, iter);
                 OceanViewer.displayBorder(numCols);
                 OceanViewer.displayCells(this);

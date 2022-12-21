@@ -17,6 +17,7 @@ public abstract class CONSTANTA {
     public static final String DefaultPreyImage = "\uD83D\uDC1F";
     public static final String DefaultPredatorImage = "\uD83E\uDD88";
     public static final String ObstacleImage = "\uD83E\uDEB8";
+    public static final String BorderImage = "\uD83D\uDFE8";
 
     public static final int TimeToFeed = 6;
     public static final int TimeToReproduce = 6;
@@ -29,4 +30,4 @@ public abstract class CONSTANTA {
 // TODO Накидать постановку
 
 //FIXME:
-// - Додати візуалізацію
+// - Додати візуалізацію в вікні
